@@ -23,12 +23,13 @@ import qualified Data.HashMap.Strict as HM
 import Data.HashSet (HashSet)
 import qualified Data.HashSet as HS
 
-import Control.Monad (join, liftM2, when)
+import Control.Monad (join, liftM2, void)
 
 import System.Directory (createDirectoryIfMissing, withCurrentDirectory)
 import System.Environment (getArgs, getProgName)
 import System.Exit (die)
 import System.FilePath (takeDirectory, takeFileName)
+import System.IO (hPutStrLn, stderr)
 
 import Data.Aeson (FromJSON, ToJSON, (.:), (.:?), (.=))
 import qualified Data.Aeson as J
@@ -143,18 +144,14 @@ validateVersionInRoot root@(Root { source = s, version = (Just t) })
   where hint = "source definition:\n" ++ (LB.unpack $ P.encodePretty s)
 validateVersionInRoot x = Right x
 
-eitherExit :: Either String a -> IO a
-eitherExit (Left s) = die s
-eitherExit (Right x) = return x
-
 checkScript root _ = return [toVersion root]
 
 inScript root [] = die "No destination directory given in argument list"
 inScript root (head -> target) = do
-  eitherExit $ validateVersionInRoot root
+  either (hPutStrLn stderr) (void . return) $ validateVersionInRoot root
   createDirectoryIfMissing True target
   withCurrentDirectory target $ HM.traverseWithKey handleItem sourceData
-  return $ J.object ["version" .= version root, metadataOutput]
+  return $ J.object ["version" .= toVersion root, metadataOutput]
   where
     sourceData = HM.fromList $ map usefulItem $ HM.toList $ source root
     usefulItem (k, v) = (unpack k, secretText v)
@@ -166,7 +163,7 @@ inScript root (head -> target) = do
 outScript root _ = return $ J.object ["version" .= toVersion root]
 
 main = getProgName >>= script where
-  root = eitherExit =<< fmap J.eitherDecode LB.getContents
+  root = either die return =<< fmap J.eitherDecode LB.getContents
   args = getArgs
 
   invoke :: ToJSON a => (Root -> [String] -> IO a) -> IO ()
