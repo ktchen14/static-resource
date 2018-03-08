@@ -66,9 +66,11 @@ instance FromJSON StaticItem where
   parseJSON x = typeMismatch "a String or Object" x
 
 instance ToJSON StaticItem where
+  toJSON (SecretItem { secret = _, public = Nothing }) =
+    J.object ["secret" .= ("[redacted]" :: Text)]
+  toJSON (SecretItem { secret = _, public = Just p }) =
+    J.object ["secret" .= ("[redacted]" :: Text), "public" .= p]
   toJSON (PublicItem x) = J.toJSON x
-  toJSON (SecretItem { public = p, secret = s }) =
-    J.object ["secret" .= s, "public" .= p]
 
 -- The actual text for the StaticItem
 secretText :: StaticItem -> Text
