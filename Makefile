@@ -1,5 +1,5 @@
 DOCKER_PREFIX ?= vaneci
-STACK := stack --docker --verbosity error
+STACK := stack --docker
 
 docker:
 	$(STACK) --local-bin-path . build --copy-bins .
