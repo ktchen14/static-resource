@@ -35,6 +35,9 @@ source:
     secret: my-password
 ```
 
+Where `secret` is the item's actual value and `public` is the value to show in
+the Concourse UI. Note that `public` is optional and defaults to `[redacted]`.
+
 ## Behavior
 
 ### `check`: Return an identifier for the source configuration

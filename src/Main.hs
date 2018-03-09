@@ -77,10 +77,10 @@ secretText :: StaticItem -> Text
 secretText (PublicItem x) = x
 secretText (SecretItem { secret = x }) = x
 
--- The text that should appear in the item's metadata output (default: ...)
+-- The text that should appear in the metadata output (default: "[redacted]")
 publicText :: StaticItem -> Text
 publicText (PublicItem x) = x
-publicText (SecretItem { public = x }) = fromMaybe "..." x
+publicText (SecretItem { public = x }) = fromMaybe "[redacted]" x
 
 -- A version reference corresponding to a { "ref": ... } JSON object and
 -- implemented as a SHA1 hash rendered as base16 text
