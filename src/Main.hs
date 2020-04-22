@@ -1,3 +1,6 @@
+-- Copyright (c) 2020 VMware, Inc.
+-- SPDX-License-Identifier: MIT
+
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
