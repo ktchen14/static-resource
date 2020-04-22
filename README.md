@@ -10,7 +10,7 @@ this information:
 resource_types:
 - name: static
   type: docker-image
-  source: { repository: vaneci/static-resource }
+  source: { repository: ktchen14/static-resource }
 ```
 
 ## Source Configuration

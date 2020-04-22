@@ -1,6 +1,7 @@
 name:           static-resource
 version:        0.1.0.0
-homepage:       https://gitlab.eng.vmware.com/PKS/static-resource
+homepage:       https://github.com/ktchen14/static-resource
+bug-reports:    https://github.com/ktchen14/static-resource/issues
 license:        MIT
 license-file:   LICENSE
 author:         Kaiting Chen
