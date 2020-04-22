@@ -1,7 +1,7 @@
 # Static Resource
 
-A resource that creates static files from the source configuration. Used to pass
-information that shouldn't go in `params` to tasks.
+A Concourse resource to expose static information from its source configuration
+as a directory. Used to pass information that shouldn't go in `params` to tasks.
 
 To use this resource in a pipeline ensure that the `resource_types` section has
 this information:

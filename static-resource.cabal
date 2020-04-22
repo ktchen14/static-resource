@@ -1,5 +1,6 @@
 name:           static-resource
 version:        0.1.0.0
+synopsis:       A Concourse resource to expose static information
 homepage:       https://github.com/ktchen14/static-resource
 bug-reports:    https://github.com/ktchen14/static-resource/issues
 license:        MIT
